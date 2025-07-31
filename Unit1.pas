@@ -1,0 +1,126 @@
+
+unit Unit1;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.Grids, Vcl.DBGrids,
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
+  FireDAC.Stan.Pool, FireDAC.Phys, FireDAC.Comp.Client,
+  FireDAC.Phys.Oracle, FireDAC.Phys.OracleDef, FireDAC.VCLUI.Wait,
+  FireDAC.Comp.UI, FireDAC.Comp.DataSet, Vcl.StdCtrls, FireDAC.Stan.Async,
+  FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt, UnitGlobals;
+
+type
+  TFormAccessRequests = class(TForm)
+    FDConnection1: TFDConnection;
+    FDQuery1: TFDQuery;
+    DataSource1: TDataSource;
+    DBGrid1: TDBGrid;
+    FDPhysOracleDriverLink1: TFDPhysOracleDriverLink;
+    FDGUIxWaitCursor1: TFDGUIxWaitCursor;
+    Button1: TButton;
+    Label1: TLabel;
+    RequestButton: TButton;
+    ButtonRequestHistory: TButton;
+    RolesButton: TButton;
+    GiveAccessButton: TButton;
+    procedure FormCreate(Sender: TObject);
+    procedure ButtonRefreshClic(Sender: TObject);
+    procedure RequestButtonClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormShow(Sender: TObject);
+    procedure ButtonRequestHistoryClick(Sender: TObject);
+    procedure RolesButtonClick(Sender: TObject);
+    procedure GiveAccessButtonClick(Sender: TObject);
+  private
+    procedure LoadAccessRequests;
+  public
+  end;
+
+
+var
+  FormAccessRequests: TFormAccessRequests;
+
+implementation
+
+{$R *.dfm}
+
+uses UnitServices, UnitDebug, UnitAccess, UnitAccessGive;
+
+
+procedure TFormAccessRequests.ButtonRequestHistoryClick(Sender: TObject);
+begin
+      DebugForm.Show;
+end;
+
+procedure TFormAccessRequests.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  Application.Terminate;
+end;
+
+procedure TFormAccessRequests.FormCreate(Sender: TObject);
+begin
+  FDQuery1.Connection := FDConnectionGlobal;
+end;
+
+procedure TFormAccessRequests.FormShow(Sender: TObject);
+begin
+  LoadAccessRequests;
+  if CurrentUserRoleID <> 1 then
+    begin
+       RolesButton.Hide;
+       ButtonRequestHistory.Hide;
+    end
+  else
+  begin
+    RolesButton.Show;
+    ButtonRequestHistory.Show;
+  end;
+end;
+
+procedure TFormAccessRequests.GiveAccessButtonClick(Sender: TObject);
+begin
+ FormApprove.Show;
+end;
+
+procedure TFormAccessRequests.ButtonRefreshClic(Sender: TObject);
+begin
+  LoadAccessRequests;
+end;
+
+procedure TFormAccessRequests.LoadAccessRequests;
+begin
+  FDQuery1.Close;
+  FDQuery1.SQL.Text :=
+    'SELECT ar.ACCESSREQUEST_ID, u.Username, s.Name AS ServiceName, r.Name AS RoleName, st.Name AS StatusName ' +
+    'FROM Access_Requests ar ' +
+    'JOIN Users u ON ar.REQUESTER_ID = u.USER_ID ' +
+    'JOIN Services s ON ar.Service_ID = s.SERVICE_ID ' +
+    'JOIN Roles r ON ar.Role_ID = r.ROLE_ID ' +
+    'JOIN Request_Statuses st ON ar.STATUS_ID = st.REQUESTSTATUS_ID ' +
+    'WHERE ar.REQUESTER_ID = :u_id';
+  FDQuery1.ParamByName('u_id').AsInteger := CurrentUserID;
+  FDQuery1.Open;
+  DBGrid1.Columns[0].Width := 80;
+  DBGrid1.Columns[1].Width := 150;
+  DBGrid1.Columns[2].Width := 150;
+  DBGrid1.Columns[3].Width := 150;
+  DBGrid1.Columns[4].Width := 150;
+end;
+
+procedure TFormAccessRequests.RequestButtonClick(Sender: TObject);
+begin
+  RequestForm.Show;
+end;
+
+procedure TFormAccessRequests.RolesButtonClick(Sender: TObject);
+begin
+  AccessForm.Show;
+end;
+
+end.
+

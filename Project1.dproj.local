@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2025/07/22 09:55:35.000.755,=C:\Users\IcePl\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2025/07/22 10:57:25.000.873,C:\Users\IcePl\Documents\Embarcadero\Studio\Projects\Project1.dproj=C:\Users\IcePl\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>2025/07/25 11:15:48.000.595,=C:\Users\IcePl\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2025/07/25 11:16:35.000.575,C:\Users\IcePl\Documents\Embarcadero\Studio\Projects\UnitLogin.pas=C:\Users\IcePl\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2025/07/25 11:16:35.000.575,C:\Users\IcePl\Documents\Embarcadero\Studio\Projects\UnitLogin.dfm=C:\Users\IcePl\Documents\Embarcadero\Studio\Projects\Unit2.dfm</Transaction>
+    <Transaction>2025/07/25 11:26:31.000.792,=C:\Users\IcePl\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2025/07/25 11:26:50.000.915,C:\Users\IcePl\Documents\Embarcadero\Studio\Projects\UnitGlobals.pas=C:\Users\IcePl\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2025/07/25 14:44:15.000.691,=C:\Users\IcePl\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2025/07/25 15:00:24.000.936,C:\Users\IcePl\Documents\Embarcadero\Studio\Projects\UnitServies.dfm=C:\Users\IcePl\Documents\Embarcadero\Studio\Projects\Unit2.dfm</Transaction>
+    <Transaction>2025/07/25 15:00:24.000.936,C:\Users\IcePl\Documents\Embarcadero\Studio\Projects\UnitServies.pas=C:\Users\IcePl\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2025/07/29 12:31:03.000.435,=C:\Users\IcePl\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2025/07/29 12:31:36.000.481,C:\Users\IcePl\Documents\Embarcadero\Studio\Projects\UnitDebug.dfm=C:\Users\IcePl\Documents\Embarcadero\Studio\Projects\Unit2.dfm</Transaction>
+    <Transaction>2025/07/29 12:31:36.000.481,C:\Users\IcePl\Documents\Embarcadero\Studio\Projects\UnitDebug.pas=C:\Users\IcePl\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2025/07/29 18:53:48.000.021,=C:\Users\IcePl\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2025/07/29 18:54:19.000.383,C:\Users\IcePl\Documents\Embarcadero\Studio\Projects\UnitUsers.pas=C:\Users\IcePl\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2025/07/29 18:54:19.000.383,C:\Users\IcePl\Documents\Embarcadero\Studio\Projects\UnitUsers.dfm=C:\Users\IcePl\Documents\Embarcadero\Studio\Projects\Unit2.dfm</Transaction>
+    <Transaction>2025/07/29 18:54:30.000.523,C:\Users\IcePl\Documents\Embarcadero\Studio\Projects\UnitServices.pas=C:\Users\IcePl\Documents\Embarcadero\Studio\Projects\UnitServies.pas</Transaction>
+    <Transaction>2025/07/29 18:54:30.000.523,C:\Users\IcePl\Documents\Embarcadero\Studio\Projects\UnitServices.dfm=C:\Users\IcePl\Documents\Embarcadero\Studio\Projects\UnitServies.dfm</Transaction>
+    <Transaction>2025/07/29 18:59:02.000.883,=C:\Users\IcePl\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2025/07/29 18:59:38.000.144,C:\Users\IcePl\Documents\Embarcadero\Studio\Projects\UnitAccess.pas=C:\Users\IcePl\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2025/07/29 18:59:38.000.144,C:\Users\IcePl\Documents\Embarcadero\Studio\Projects\UnitAccess.dfm=C:\Users\IcePl\Documents\Embarcadero\Studio\Projects\Unit2.dfm</Transaction>
+    <Transaction>2025/07/30 10:46:38.000.496,=C:\Users\IcePl\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2025/07/30 10:46:45.000.638,C:\Users\IcePl\Documents\Embarcadero\Studio\Projects\Unit2.dfm=C:\Users\IcePl\Documents\Embarcadero\Studio\Projects\UnitAccessGive.dfm</Transaction>
+    <Transaction>2025/07/30 10:46:45.000.638,C:\Users\IcePl\Documents\Embarcadero\Studio\Projects\Unit2.pas=C:\Users\IcePl\Documents\Embarcadero\Studio\Projects\UnitAccessGive.pas</Transaction>
+    <Transaction>2025/07/30 12:01:13.000.396,=C:\Users\IcePl\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2025/07/30 12:01:21.000.385,C:\Users\IcePl\Documents\Embarcadero\Studio\Projects\Unit2.dfm=C:\Users\IcePl\Documents\Embarcadero\Studio\Projects\UnitOwnerCreate.dfm</Transaction>
+    <Transaction>2025/07/30 12:01:21.000.385,C:\Users\IcePl\Documents\Embarcadero\Studio\Projects\Unit2.pas=C:\Users\IcePl\Documents\Embarcadero\Studio\Projects\UnitOwnerCreate.pas</Transaction>
+    <Transaction>2025/07/31 13:14:30.000.553,C:\Users\IcePl\Documents\Embarcadero\Studio\Projects\UnitUsers.pas=</Transaction>
+  </Transactions>
+</BorlandProject>
