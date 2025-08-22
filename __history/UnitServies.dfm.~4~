@@ -1,0 +1,58 @@
+object RequestForm: TRequestForm
+  Left = 0
+  Top = 0
+  Caption = 'RequestForm'
+  ClientHeight = 377
+  ClientWidth = 624
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -12
+  Font.Name = 'Segoe UI'
+  Font.Style = []
+  OnCreate = FormCreate
+  TextHeight = 15
+  object DBGridServices: TDBGrid
+    Left = 24
+    Top = 24
+    Width = 529
+    Height = 219
+    DataSource = DataSourceServices
+    TabOrder = 0
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -12
+    TitleFont.Name = 'Segoe UI'
+    TitleFont.Style = []
+  end
+  object ButtonSubmit: TButton
+    Left = 24
+    Top = 249
+    Width = 89
+    Height = 25
+    Caption = #1055#1086#1076#1072#1090#1080' '#1079#1072#1087#1080#1090
+    TabOrder = 1
+    OnClick = ButtonSubmitClick
+  end
+  object MemoStatus: TMemo
+    Left = 24
+    Top = 280
+    Width = 185
+    Height = 89
+    Lines.Strings = (
+      'MemoStatus')
+    TabOrder = 2
+  end
+  object FDQueryServices: TFDQuery
+    Left = 560
+    Top = 24
+  end
+  object FDQueryInsert: TFDQuery
+    Left = 560
+    Top = 56
+  end
+  object DataSourceServices: TDataSource
+    Left = 560
+    Top = 96
+  end
+end

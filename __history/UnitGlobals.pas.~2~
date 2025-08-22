@@ -1,0 +1,11 @@
+unit UnitGlobals;
+
+interface
+
+var
+  CurrentUserID: Integer;
+  CurrentUsername: string;
+
+implementation
+
+end.

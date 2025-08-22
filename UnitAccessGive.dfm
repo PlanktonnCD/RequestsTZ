@@ -10,7 +10,9 @@ object FormApprove: TFormApprove
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
+  OldCreateOrder = True
   OnShow = FormShow
+  PixelsPerInch = 96
   TextHeight = 15
   object DBGridRequests: TDBGrid
     Left = 8
@@ -42,6 +44,15 @@ object FormApprove: TFormApprove
     Caption = #1042#1110#1076#1093#1080#1083#1080#1090#1080
     TabOrder = 2
     OnClick = BtnRejectClick
+  end
+  object Button2: TButton
+    Left = 543
+    Top = 16
+    Width = 48
+    Height = 49
+    Caption = '<-'
+    TabOrder = 3
+    OnClick = Button2Click
   end
   object FDQueryRequests: TFDQuery
     Left = 544

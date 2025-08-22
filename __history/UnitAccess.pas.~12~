@@ -1,0 +1,85 @@
+unit UnitAccess;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Grids, Vcl.DBGrids,
+  Data.DB, FireDAC.Comp.Client, FireDAC.Stan.Param, FireDAC.Comp.DataSet,
+  Vcl.StdCtrls, UnitGlobals, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt;
+
+type
+  TAccessForm = class(TForm)
+    DBGridServices: TDBGrid;
+    DBGridUsersRoles: TDBGrid;
+    DataSourceServices: TDataSource;
+    DataSourceUsersRoles: TDataSource;
+    FDQueryServices: TFDQuery;
+    FDQueryUsersRoles: TFDQuery;
+    AddOwnerButton: TButton;
+
+    procedure FormShow(Sender: TObject);
+    procedure DBGridServicesCellClick(Column: TColumn);
+    procedure AddOwnerButtonClick(Sender: TObject);
+  private
+    procedure LoadServices;
+    procedure LoadUsersRoles(ServiceID: Integer);
+  public
+  end;
+
+var
+    AccessForm: TAccessForm;
+
+implementation
+
+{$R *.dfm}
+
+procedure TAccessForm.FormShow(Sender: TObject);
+begin
+  LoadServices;
+end;
+
+procedure TAccessForm.LoadServices;
+begin
+  FDQueryServices.Connection := FDConnectionGlobal;
+  FDQueryServices.SQL.Text := 'SELECT SERVICE_ID, NAME FROM SERVICES ORDER BY NAME';
+  FDQueryServices.Open;
+  DBGridServices.Columns[0].Width := 50;
+  DBGridServices.Columns[1].Width := 150;
+end;
+
+procedure TAccessForm.AddOwnerButtonClick(Sender: TObject);
+begin
+  OwnerCreateForm.Show;
+end;
+
+procedure TAccessForm.DBGridServicesCellClick(Column: TColumn);
+var
+  ServiceID: Integer;
+begin
+  if FDQueryServices.IsEmpty then Exit;
+  ServiceID := FDQueryServices.FieldByName('SERVICE_ID').AsInteger;
+  LoadUsersRoles(ServiceID);
+end;
+
+procedure TAccessForm.LoadUsersRoles(ServiceID: Integer);
+begin
+  FDQueryUsersRoles.Close;
+  FDQueryUsersRoles.Connection := FDConnectionGlobal;
+  FDQueryUsersRoles.SQL.Text :=
+    'SELECT u.USER_ID, u.USERNAME, r.NAME AS ROLE_NAME ' +
+    'FROM USER_SERVICE_ROLES usr ' +
+    'JOIN USERS u ON usr.USER_ID = u.USER_ID ' +
+    'JOIN ROLES r ON usr.ROLE_ID = r.ROLE_ID ' +
+    'WHERE usr.SERVICE_ID = :s_id';
+  FDQueryUsersRoles.ParamByName('s_id').AsInteger := ServiceID;
+  FDQueryUsersRoles.Open;
+  DBGridUsersRoles.Columns[0].Width := 50;
+  DBGridUsersRoles.Columns[1].Width := 150;
+  DBGridUsersRoles.Columns[2].Width := 150;
+end;
+
+end.
+

@@ -10,9 +10,10 @@ object FormAccessRequests: TFormAccessRequests
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
-  OnClose = FormClose
+  OldCreateOrder = True
   OnCreate = FormCreate
   OnShow = FormShow
+  PixelsPerInch = 96
   TextHeight = 15
   object Label1: TLabel
     Left = 368

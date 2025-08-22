@@ -10,7 +10,9 @@ object AccessForm: TAccessForm
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
+  OldCreateOrder = True
   OnShow = FormShow
+  PixelsPerInch = 96
   TextHeight = 15
   object DBGridServices: TDBGrid
     Left = 8
@@ -48,6 +50,15 @@ object AccessForm: TAccessForm
     TabOrder = 2
     OnClick = AddOwnerButtonClick
   end
+  object Button1: TButton
+    Left = 511
+    Top = 16
+    Width = 48
+    Height = 49
+    Caption = '<-'
+    TabOrder = 3
+    OnClick = Button1Click
+  end
   object DataSourceServices: TDataSource
     DataSet = FDQueryServices
     Left = 512
@@ -55,8 +66,8 @@ object AccessForm: TAccessForm
   end
   object DataSourceUsersRoles: TDataSource
     DataSet = FDQueryUsersRoles
-    Left = 544
-    Top = 16
+    Left = 592
+    Top = 8
   end
   object FDQueryServices: TFDQuery
     Left = 512

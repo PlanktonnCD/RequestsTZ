@@ -19,10 +19,12 @@ type
     FDQueryServices: TFDQuery;
     FDQueryUsersRoles: TFDQuery;
     AddOwnerButton: TButton;
+    Button1: TButton;
 
     procedure FormShow(Sender: TObject);
     procedure DBGridServicesCellClick(Column: TColumn);
     procedure AddOwnerButtonClick(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
   private
     procedure LoadServices;
     procedure LoadUsersRoles(ServiceID: Integer);
@@ -36,7 +38,7 @@ implementation
 
 {$R *.dfm}
 
-uses UnitOwnerCreate;
+uses UnitOwnerCreate, UnitMain, Unit1;
 
 procedure TAccessForm.FormShow(Sender: TObject);
 begin
@@ -55,7 +57,12 @@ end;
 
 procedure TAccessForm.AddOwnerButtonClick(Sender: TObject);
 begin
-  OwnerCreateForm.Show;
+  MainForm.ShowForm(TOwnerCreateForm);
+end;
+
+procedure TAccessForm.Button1Click(Sender: TObject);
+begin
+  MainForm.ShowForm(TFormAccessRequests);
 end;
 
 procedure TAccessForm.DBGridServicesCellClick(Column: TColumn);

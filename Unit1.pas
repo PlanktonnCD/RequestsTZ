@@ -30,7 +30,6 @@ type
     procedure FormCreate(Sender: TObject);
     procedure ButtonRefreshClic(Sender: TObject);
     procedure RequestButtonClick(Sender: TObject);
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure ButtonRequestHistoryClick(Sender: TObject);
     procedure RolesButtonClick(Sender: TObject);
@@ -48,18 +47,12 @@ implementation
 
 {$R *.dfm}
 
-uses UnitServices, UnitDebug, UnitAccess, UnitAccessGive;
+uses UnitServices, UnitDebug, UnitAccess, UnitAccessGive, UnitMain;
 
 
 procedure TFormAccessRequests.ButtonRequestHistoryClick(Sender: TObject);
 begin
-      DebugForm.Show;
-end;
-
-procedure TFormAccessRequests.FormClose(Sender: TObject;
-  var Action: TCloseAction);
-begin
-  Application.Terminate;
+    MainForm.ShowForm(TDebugForm);
 end;
 
 procedure TFormAccessRequests.FormCreate(Sender: TObject);
@@ -84,7 +77,7 @@ end;
 
 procedure TFormAccessRequests.GiveAccessButtonClick(Sender: TObject);
 begin
- FormApprove.Show;
+  MainForm.ShowForm(TFormApprove);
 end;
 
 procedure TFormAccessRequests.ButtonRefreshClic(Sender: TObject);
@@ -114,12 +107,12 @@ end;
 
 procedure TFormAccessRequests.RequestButtonClick(Sender: TObject);
 begin
-  RequestForm.Show;
+  MainForm.ShowForm(TRequestForm);
 end;
 
 procedure TFormAccessRequests.RolesButtonClick(Sender: TObject);
 begin
-  AccessForm.Show;
+ MainForm.ShowForm(TAccessForm);
 end;
 
 end.

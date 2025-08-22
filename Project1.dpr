@@ -9,13 +9,15 @@ uses
   UnitDebug in 'UnitDebug.pas' {DebugForm},
   UnitAccess in 'UnitAccess.pas' {AccessForm},
   UnitAccessGive in 'UnitAccessGive.pas' {FormApprove},
-  UnitOwnerCreate in 'UnitOwnerCreate.pas' {OwnerCreateForm};
+  UnitOwnerCreate in 'UnitOwnerCreate.pas' {OwnerCreateForm},
+  UnitMain in 'UnitMain.pas' {MainForm};
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TMainForm, MainForm);
   Application.CreateForm(TFormLogin, FormLogin);
   Application.CreateForm(TFormAccessRequests, FormAccessRequests);
   Application.CreateForm(TRequestForm, RequestForm);

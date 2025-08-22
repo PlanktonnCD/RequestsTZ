@@ -1,0 +1,30 @@
+object MainForm: TMainForm
+  Left = 0
+  Top = 0
+  Caption = 'MainForm'
+  ClientHeight = 366
+  ClientWidth = 529
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  OnCreate = FormCreate
+  DesignSize = (
+    529
+    366)
+  PixelsPerInch = 96
+  TextHeight = 13
+  object PanelContent: TPanel
+    Left = 8
+    Top = 8
+    Width = 513
+    Height = 350
+    Anchors = [akLeft, akTop, akRight, akBottom]
+    AutoSize = True
+    Caption = 'PanelContent'
+    TabOrder = 0
+  end
+end

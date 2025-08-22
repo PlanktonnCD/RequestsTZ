@@ -1,0 +1,77 @@
+unit UnitServies;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.StdCtrls, Vcl.Grids,
+  Vcl.DBGrids, UnitGlobals;
+
+type
+  TRequestForm = class(TForm)
+    DBGridServices: TDBGrid;
+    ButtonSubmit: TButton;
+    MemoStatus: TMemo;
+    FDQueryServices: TFDQuery;
+    FDQueryInsert: TFDQuery;
+    DataSourceServices: TDataSource;
+    procedure FormCreate(Sender: TObject);
+    procedure ButtonSubmitClick(Sender: TObject);
+  private
+    procedure LoadServices;
+  public
+    FDConnection: TFDConnection;
+  end;
+
+var
+  RequestForm: TRequestForm;
+
+implementation
+
+{$R *.dfm}
+
+procedure TRequestForm.FormCreate(Sender: TObject);
+begin
+  LoadServices;
+end;
+
+procedure TRequestForm.LoadServices;
+begin
+  FDQueryServices.Connection := FDConnection;
+  FDQueryServices.SQL.Text := 'SELECT SERVICE_ID, NAME, DESCRIPTION FROM SERVICES ORDER BY NAME';
+  FDQueryServices.Open;
+  DataSourceServices.DataSet := FDQueryServices;
+end;
+
+procedure TRequestForm.ButtonSubmitClick(Sender: TObject);
+var
+  ServiceID: Integer;
+begin
+  if FDQueryServices.IsEmpty then
+  begin
+    MemoStatus.Lines.Text := 'Список сервісів порожній.';
+    Exit;
+  end;
+
+  ServiceID := FDQueryServices.FieldByName('SERVICE_ID').AsInteger;
+
+  FDQueryInsert.Connection := FDConnection;
+  FDQueryInsert.SQL.Text :=
+    'INSERT INTO ACCESS_REQUESTS (ACCESSREQUEST_ID, REQUESTER_ID, SERVICE_ID, STATUS_ID, CREATED_AT) ' +
+    'VALUES (ACCESSREQUEST_SEQ.NEXTVAL, :uid, :sid, 1, SYSDATE)';
+  FDQueryInsert.ParamByName('uid').AsInteger := CurrentUserID;
+  FDQueryInsert.ParamByName('sid').AsInteger := ServiceID;
+
+  try
+    FDQueryInsert.ExecSQL;
+    MemoStatus.Lines.Text := 'Запит подано успішно.';
+  except
+    on E: Exception do
+      MemoStatus.Lines.Text := 'Помилка при поданні запиту: ' + E.Message;
+  end;
+end;
+
+end.

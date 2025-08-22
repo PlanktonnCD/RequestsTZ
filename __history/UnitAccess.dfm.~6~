@@ -1,0 +1,74 @@
+object AccessForm: TAccessForm
+  Left = 0
+  Top = 0
+  Caption = 'AccessForm'
+  ClientHeight = 441
+  ClientWidth = 624
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -12
+  Font.Name = 'Segoe UI'
+  Font.Style = []
+  OnShow = FormShow
+  TextHeight = 15
+  object Label1: TLabel
+    Left = 511
+    Top = 104
+    Width = 34
+    Height = 15
+    Caption = 'Label1'
+  end
+  object Label2: TLabel
+    Left = 511
+    Top = 125
+    Width = 34
+    Height = 15
+    Caption = 'Label1'
+  end
+  object DBGridServices: TDBGrid
+    Left = 8
+    Top = 16
+    Width = 497
+    Height = 265
+    DataSource = DataSourceServices
+    TabOrder = 0
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -12
+    TitleFont.Name = 'Segoe UI'
+    TitleFont.Style = []
+    OnCellClick = DBGridServicesCellClick
+  end
+  object DBGridUsersRoles: TDBGrid
+    Left = 8
+    Top = 287
+    Width = 497
+    Height = 154
+    DataSource = DataSourceUsersRoles
+    TabOrder = 1
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -12
+    TitleFont.Name = 'Segoe UI'
+    TitleFont.Style = []
+  end
+  object DataSourceServices: TDataSource
+    DataSet = FDQueryServices
+    Left = 512
+    Top = 16
+  end
+  object DataSourceUsersRoles: TDataSource
+    DataSet = FDQueryUsersRoles
+    Left = 544
+    Top = 16
+  end
+  object FDQueryServices: TFDQuery
+    Left = 512
+    Top = 48
+  end
+  object FDQueryUsersRoles: TFDQuery
+    Left = 544
+    Top = 48
+  end
+end

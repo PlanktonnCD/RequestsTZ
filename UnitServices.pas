@@ -19,9 +19,11 @@ type
     FDQueryInsert: TFDQuery;
     DataSourceServices: TDataSource;
     ComboBoxRoles: TComboBox;
+    Button1: TButton;
     procedure FormShow(Sender: TObject);
     procedure ButtonSubmitClick(Sender: TObject);
     procedure LoadRoles();
+    procedure Button1Click(Sender: TObject);
   private
     procedure LoadServices;
   public
@@ -33,6 +35,7 @@ var
 implementation
 
 {$R *.dfm}
+uses UnitMain, Unit1;
 
 procedure TRequestForm.FormShow(Sender: TObject);
 begin
@@ -75,6 +78,11 @@ begin
     ComboBoxRoles.ItemIndex := 0;
 end;
 
+
+procedure TRequestForm.Button1Click(Sender: TObject);
+begin
+ MainForm.ShowForm(TFormAccessRequests);
+end;
 
 procedure TRequestForm.ButtonSubmitClick(Sender: TObject);
 var

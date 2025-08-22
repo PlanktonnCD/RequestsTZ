@@ -1,0 +1,14 @@
+unit UnitGlobals;
+
+interface
+
+uses FireDAC.Comp.Client;
+
+var
+  FDConnectionGlobal: TFDConnection;
+  CurrentUserID: Integer;
+  CurrentUsername: string;
+
+implementation
+
+end.

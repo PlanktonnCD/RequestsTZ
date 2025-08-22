@@ -10,7 +10,9 @@ object OwnerCreateForm: TOwnerCreateForm
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
+  OldCreateOrder = True
   OnShow = FormShow
+  PixelsPerInch = 96
   TextHeight = 15
   object DBGridServices: TDBGrid
     Left = 8
@@ -56,6 +58,15 @@ object OwnerCreateForm: TOwnerCreateForm
     Height = 23
     TabOrder = 3
     Text = 'ComboBoxRoles'
+  end
+  object Button1: TButton
+    Left = 479
+    Top = 8
+    Width = 48
+    Height = 49
+    Caption = '<-'
+    TabOrder = 4
+    OnClick = Button1Click
   end
   object FDQueryServices: TFDQuery
     Left = 512

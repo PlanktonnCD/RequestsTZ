@@ -1,0 +1,54 @@
+unit UnitMain;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls,
+  Unit1, UnitAccess, UnitAccessGive, UnitDebug, UnitGlobals, UnitLogin, UnitOwnerCreate, UnitServices;
+
+type
+  TMainForm = class(TForm)
+    PanelContent: TPanel;
+    procedure ShowForm(AFormClass: TFormClass);
+    procedure FormCreate(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  MainForm: TMainForm;
+
+implementation
+
+{$R *.dfm}
+
+procedure TMainForm.FormCreate(Sender: TObject);
+begin
+  ShowForm(TFormLogin);
+end;
+
+procedure TMainForm.ShowForm(AFormClass: TFormClass);
+var
+  AForm: TForm;
+  i: Integer;
+begin
+  // уничтожаем все старые формы в панели
+  for i := PanelContent.ControlCount - 1 downto 0 do
+    if PanelContent.Controls[i] is TForm then
+      PanelContent.Controls[i].Free;
+
+  // создаём новую
+  AForm := AFormClass.Create(Self);
+  AForm.Parent := PanelContent;
+  AForm.Align := alClient;
+  AForm.BorderStyle := bsNone;
+  AForm.FormStyle := fsNormal;
+  AForm.Visible := True;
+end;
+
+
+
+end.

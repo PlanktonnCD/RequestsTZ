@@ -1,0 +1,46 @@
+unit Unit2;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,
+  FireDAC.Comp.Client, Data.DB,
+  frxClass, frxDBSet;
+
+type
+  TFormFastReportTest = class(TForm)
+    ButtonShowReport: TButton;
+    FDQuery1: TFDQuery;
+    DataSource1: TDataSource;
+    frxReport1: TfrxReport;
+    frxDBDataset1: TfrxDBDataset;
+    procedure ButtonShowReportClick(Sender: TObject);
+  private
+  public
+  end;
+
+var
+  FormFastReportTest: TFormFastReportTest;
+
+implementation
+
+{$R *.dfm}
+
+procedure TFormFastReportTest.ButtonShowReportClick(Sender: TObject);
+begin
+  // Тестовый запрос, можно даже без БД
+  FDQuery1.SQL.Text := 'select 1 as ID, ''Test string'' as NAME from dual';
+  FDQuery1.Open;
+
+  frxReport1.Clear;
+  frxReport1.DataSets.Clear;
+  frxDBDataset1.DataSet := FDQuery1;
+  frxReport1.DataSets.Add(frxDBDataset1);
+
+  // Генерация отчёта по умолчанию
+  frxReport1.ShowReport;
+end;
+
+end.
+

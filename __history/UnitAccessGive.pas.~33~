@@ -1,0 +1,149 @@
+unit UnitAccessGive;
+
+interface
+
+uses
+  Winapi.Windows, System.SysUtils, System.Classes, Vcl.Forms, Vcl.Controls,
+  Vcl.StdCtrls, Vcl.DBGrids, Data.DB, FireDAC.Comp.Client,
+  FireDAC.Comp.DataSet, FireDAC.Stan.Param, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
+  FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, Vcl.Grids, Vcl.Dialogs;
+
+type
+  TFormApprove = class(TForm)
+    DBGridRequests: TDBGrid;
+    ApplyButton: TButton;
+    RejectButton: TButton;
+    FDQueryRequests: TFDQuery;
+    DataSourceRequests: TDataSource;
+    procedure FormShow(Sender: TObject);
+    procedure BtnApproveClick(Sender: TObject);
+    procedure BtnRejectClick(Sender: TObject);
+  private
+    procedure LoadRequests;
+    procedure UpdateApproval(IsApproved: Boolean);
+  public
+
+  end;
+
+var
+  FormApprove: TFormApprove;
+
+implementation
+
+uses UnitGlobals;
+
+{$R *.dfm}
+
+procedure TFormApprove.FormShow(Sender: TObject);
+begin
+  LoadRequests;
+end;
+
+procedure TFormApprove.LoadRequests;
+begin
+ FDQueryRequests.Close;
+FDQueryRequests.Connection := FDConnectionGlobal;
+
+
+FDQueryRequests.SQL.Text :=
+  'SELECT DISTINCT r.ACCESSREQUEST_ID, u.USERNAME, s.NAME AS SERVICE_NAME, rs.NAME AS STATUS, r.SERVICE_ID ' +
+  'FROM ACCESS_REQUESTS r ' +
+  'JOIN USERS u ON r.REQUESTER_ID = u.USER_ID ' +
+  'JOIN SERVICES s ON r.SERVICE_ID = s.SERVICE_ID ' +
+  'JOIN USER_SERVICE_ROLES usr ON usr.SERVICE_ID = s.SERVICE_ID ' +
+  'JOIN REQUEST_STATUSES rs ON r.STATUS_ID = rs.REQUESTSTATUS_ID ' +
+  'WHERE usr.USER_ID = :user_id ' +
+  'AND ( (usr.ROLE_ID = 2 AND r.STATUS_ID = 1) OR (usr.ROLE_ID = 1 AND r.STATUS_ID = 2) )';
+
+
+  FDQueryRequests.ParamByName('user_id').AsInteger := CurrentUserID;
+
+
+FDQueryRequests.Open;
+
+  DBGridRequests.Columns[0].Width := 20;
+  DBGridRequests.Columns[1].Width := 80;
+  DBGridRequests.Columns[2].Width := 80;
+  DBGridRequests.Columns[3].Width := 150;
+
+end;
+
+
+procedure TFormApprove.BtnApproveClick(Sender: TObject);
+begin
+  UpdateApproval(True);
+end;
+
+procedure TFormApprove.BtnRejectClick(Sender: TObject);
+begin
+  UpdateApproval(False);
+end;
+
+procedure TFormApprove.UpdateApproval(IsApproved: Boolean);
+var
+  FieldName: string;
+  StatusID: Integer;
+  RoleID: Integer;
+  Query: TFDQuery;
+begin
+  if FDQueryRequests.IsEmpty then Exit;
+
+  Query := TFDQuery.Create(nil);
+  Query.Connection := FDConnectionGlobal;
+  FieldName := FDQueryRequests.FieldByName('SERVICE_NAME').AsString;
+  try
+    Query.SQL.Text :=
+      'SELECT usr.ROLE_ID ' +
+      'FROM USER_SERVICE_ROLES usr ' +
+      'JOIN SERVICES s ON usr.SERVICE_ID = s.SERVICE_ID ' +
+      'WHERE usr.USER_ID = :user_id AND s.NAME = :service_name';
+    Query.ParamByName('user_id').AsInteger := CurrentUserID;
+    Query.ParamByName('service_name').AsString := FieldName;
+    Query.Open;
+
+    if not Query.IsEmpty then
+  RoleID := Query.FieldByName('ROLE_ID').AsInteger
+else
+  ShowMessage('Результат порожній!');
+
+
+  finally
+    Query.Free;
+       ShowMessage(CurrentUserID.ToString + ' ' + FieldName);
+    ShowMessage(RoleID.ToString);
+
+  if RoleID = 1 then
+  begin
+    if IsApproved = TRUE then
+      StatusID := 4
+    else
+      StatusID := 5;
+  end
+  else
+  begin
+    if IsApproved = TRUE then
+      StatusID := 2
+    else
+      StatusID := 3;
+  end;
+
+  with TFDQuery.Create(nil) do
+  try
+    Connection := FDConnectionGlobal;
+    SQL.Text :=
+      'UPDATE ACCESS_REQUESTS ' +
+      'SET STATUS_ID = :status_id ' +
+      'WHERE ACCESSREQUEST_ID = :request_id';
+    ParamByName('status_id').AsInteger := StatusID;
+    ParamByName('request_id').AsInteger := FDQueryRequests.FieldByName('ACCESSREQUEST_ID').AsInteger;
+    ExecSQL;
+  finally
+    Free;
+  end;
+
+  LoadRequests;
+end;
+              end;
+end.
+

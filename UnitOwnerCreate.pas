@@ -21,11 +21,13 @@ type
     FDQueryAssign: TFDQuery;
     GiveOwnerAccessButton: TButton;
     ComboBoxRoles: TComboBox;
+    Button1: TButton;
 
     procedure FormShow(Sender: TObject);
     procedure DBGridServicesCellClick(Column: TColumn);
     procedure DBGridUsersCellClick(Column: TColumn);
     procedure ButtonAssignOwnerClick(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
   private
     SelectedServiceID: Integer;
     SelectedUserID: Integer;
@@ -42,6 +44,7 @@ implementation
 
 {$R *.dfm}
 
+uses UnitMain, UnitAccess;
 
 procedure TOwnerCreateForm.LoadRoles;
 begin
@@ -102,6 +105,11 @@ procedure TOwnerCreateForm.DBGridUsersCellClick(Column: TColumn);
 begin
   if not FDQueryUsers.IsEmpty then
     SelectedUserID := FDQueryUsers.FieldByName('USER_ID').AsInteger;
+end;
+
+procedure TOwnerCreateForm.Button1Click(Sender: TObject);
+begin
+  MainForm.ShowForm(TAccessForm);
 end;
 
 procedure TOwnerCreateForm.ButtonAssignOwnerClick(Sender: TObject);

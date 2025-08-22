@@ -34,7 +34,7 @@ implementation
 
 {$R *.dfm}
 
-uses Unit1;
+uses Unit1, UnitMain;
 
 procedure TFormLogin.FormCreate(Sender: TObject);
 begin
@@ -87,8 +87,7 @@ begin
 
  FDConnectionGlobal.ExecSQL('BEGIN appuser.set_request_ctx.set_user(:user_id); END;', [CurrentUserID]);
 
-  FormLogin.Hide;
-  FormAccessRequests.Show;
+  MainForm.ShowForm(TFormAccessRequests);
 
 end;
 

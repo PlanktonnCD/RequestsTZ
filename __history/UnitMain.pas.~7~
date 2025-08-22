@@ -1,0 +1,69 @@
+unit UnitMain;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls,
+  Unit1, UnitAccess, UnitAccessGive, UnitDebug, UnitGlobals, UnitLogin, UnitOwnerCreate, UnitServices;
+
+type
+  TMainForm = class(TForm)
+    PanelContent: TPanel;
+    procedure ShowForm(AFormClass: TFormClass);
+    procedure FormCreate(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  MainForm: TMainForm;
+
+implementation
+
+{$R *.dfm}
+
+procedure TMainForm.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+ Application.Terminate;
+end;
+
+procedure TMainForm.FormCreate(Sender: TObject);
+begin
+  ShowForm(TFormLogin);
+end;
+
+procedure TMainForm.ShowForm(AFormClass: TFormClass);
+var
+  AForm: TForm;
+  i: Integer;
+begin
+  for i := PanelContent.ControlCount - 1 downto 0 do
+    if PanelContent.Controls[i] is TForm then
+      PanelContent.Controls[i].Free;
+
+  AForm := AFormClass.Create(Self);
+  AForm.Parent := PanelContent;
+
+  AForm.Align := alNone;
+  PanelContent.Width := AForm.Width;
+  PanelContent.Height := AForm.Height;
+  AForm.Left := 0;
+  AForm.Top := 0;
+
+  AForm.Visible := True;
+
+  Self.ClientWidth := PanelContent.Width;
+  Self.ClientHeight := PanelContent.Height;
+
+  AForm.BorderStyle := bsNone;
+  AForm.FormStyle := fsNormal;
+
+end;
+
+
+
+end.

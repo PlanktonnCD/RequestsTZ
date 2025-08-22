@@ -16,9 +16,11 @@ type
     RejectButton: TButton;
     FDQueryRequests: TFDQuery;
     DataSourceRequests: TDataSource;
+    Button2: TButton;
     procedure FormShow(Sender: TObject);
     procedure BtnApproveClick(Sender: TObject);
     procedure BtnRejectClick(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
   private
     procedure LoadRequests;
     procedure UpdateApproval(IsApproved: Boolean);
@@ -31,7 +33,7 @@ var
 
 implementation
 
-uses UnitGlobals;
+uses UnitGlobals, UnitMain, Unit1;
 
 {$R *.dfm}
 
@@ -78,6 +80,11 @@ end;
 procedure TFormApprove.BtnRejectClick(Sender: TObject);
 begin
   UpdateApproval(False);
+end;
+
+procedure TFormApprove.Button2Click(Sender: TObject);
+begin
+MainForm.ShowForm(TFormAccessRequests);
 end;
 
 procedure TFormApprove.UpdateApproval(IsApproved: Boolean);
